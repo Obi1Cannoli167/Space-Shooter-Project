@@ -21,6 +21,7 @@ class Player {
         this.alpha = 1
     }
     draw() {
+        // c.drawImage("Images/normandy.png")
         c.fillStyle = this.color
         c.beginPath()
         c.moveTo(this.x-this.size,this.y)
@@ -32,7 +33,6 @@ class Player {
         c.closePath()
         c.fill()
         c.stroke()  
-
     }
     update(){
         this.draw()
