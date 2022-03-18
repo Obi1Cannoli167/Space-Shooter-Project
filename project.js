@@ -106,13 +106,11 @@ window.addEventListener("keypress", (event) => {
 // }
 // document.addEventListener("mousemove", followCursor)
 
-window.addEventListener("mousemove", function (event) {    const distance = Math.hypot(Math.abs(event.clientX - player.x), Math.abs(event.clientY - player.y))
+window.addEventListener("mousemove", function (event) {const distance = Math.hypot(Math.abs(event.clientX - player.x), Math.abs(event.clientY - player.y))
     const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)
     if (distance!=0) {
-        player.x += player.velocity*Math.cos(angle)*(0.033*distance)
         player.y += player.velocity*Math.sin(angle)*(0.033*distance)
-        // player.x += player.velocity*Math.cos(angle)
-        // player.y += player.velocity*Math.sin(angle)
+        player.x += player.velocity*Math.cos(angle)*(0.033*distance)
     }
 }, true); 
 
