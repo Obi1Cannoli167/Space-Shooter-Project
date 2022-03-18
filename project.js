@@ -21,7 +21,9 @@ class Player {
         this.alpha = 1
     }
     draw() {
-        // c.drawImage("Images/normandy.png")
+        // const img = document.querySelector("#player")
+        // c.drawImage(img, innerWidth, innerHeight)
+
         c.fillStyle = this.color
         c.beginPath()
         c.moveTo(this.x-this.size,this.y)
