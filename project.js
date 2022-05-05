@@ -11,6 +11,29 @@ const cY = innerHeight/2;
 // ------------------------------------------------------------------------
 // ---------------------------CLASSES_AND_ENTITIES-------------------------
 // ------------------------------------------------------------------------
+class playerBullet {
+    constructor(x, y, color, size, velocity){
+        this.x = x,
+        this.y = y,
+        this.color = color,
+        this.size = size,
+        this.velocity = velocity
+    }
+    draw(){
+        c.save()
+        c.fillStyle = this.color
+        c.beginPath()
+        c.ellipse(this.x, this.y, this.size*3, this.size, 0, 0, 2*Math.PI)
+        c.fill()
+        c.stroke()
+        c.restore()
+    }
+    update(){
+        this.draw()
+        this.x += this.velocity.x
+        this.y += this.velocity.y
+    }
+}
 class Player {
     constructor(x, y, color, size, velocity, alpha) {
         this.x = x,
@@ -37,29 +60,13 @@ class Player {
     update(){
         this.draw()
     }
-}
-class playerBullet {
-    constructor(x, y, color, size, velocity){
-        this.x = x,
-        this.y = y,
-        this.color = color,
-        this.size = size,
-        this.velocity = velocity
-    }
-    draw(){
-        c.fillStyle = this.color
-        c.beginPath()
-        c.ellipse(this.x, this.y, this.size*3, this.size, 0, 0, 2*Math.PI)
-        c.fill()
-        c.stroke()
-    }
-    update(){
-        this.draw()
-        this.x += this.velocity.x
-        this.y += this.velocity.y
+    shoot(){
+        playerBullets.push(new playerBullet(this.x,this.y+this.size,"blue",9,10))
+        console.log("shoot");
     }
 }
-function move(w, a, s, d) {
+
+function ctrl(w, a, s, d, spc) {
     if (w) {
         player.y -= player.velocity
         player.update()
@@ -79,19 +86,24 @@ function move(w, a, s, d) {
 }
 const playerBullets = []
 const enemies = []
+var fireRate = 1000
 
-const player = new Player(cX,cY,"#f00",50,10);
+function fire() {
+    setInterval(() => {
+        player.shoot()
+    }, fireRate);
+}
+const player = new Player(cX,cY,"#f00",20,10);
 player.draw();
-const bullet = new playerBullet(200, 200, "blue", 9, 5);
 window.addEventListener("keypress", (event) => {
     switch (event.key) {
-        case "w":move(1,0,0,0);
+        case "w":ctrl(1,0,0,0);
         break;
-        case "a":move(0,1,0,0);
+        case "a":ctrl(0,1,0,0);
         break;
-        case "s":move(0,0,1,0);
+        case "s":ctrl(0,0,1,0);
         break;
-        case "d":move(0,0,0,1);
+        case "d":ctrl(0,0,0,1);
         break;
     }
 })
@@ -111,22 +123,15 @@ window.addEventListener("mousemove", function (event) {    const distance = Math
     if (distance!=0) {
         player.x += player.velocity*Math.cos(angle)*(0.033*distance)
         player.y += player.velocity*Math.sin(angle)*(0.033*distance)
-        // player.x += player.velocity*Math.cos(angle)
-        // player.y += player.velocity*Math.sin(angle)
     }
 }, true); 
 
-let fps = 1000/60
-let delta = 0
-let lastFrame = 0
-let maxFps = 60
-
 let animationId
-
 function pacer() {
     c.clearRect(0,0,innerWidth,innerWidth)
     animationId = requestAnimationFrame(pacer)
     player.draw()
-    bullet.draw()
+    playerBullets.update()
 }
 pacer()
+fire()
