@@ -30,8 +30,8 @@ class playerBullet {
     }
     update(){
         this.draw();
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+        this.x = this.x + this.velocity.x;
+        this.y = this.y + this.velocity.y;
     }
 }
 class Player {
@@ -59,10 +59,6 @@ class Player {
     update(){
         this.draw();
     }
-    // shoot(){
-    //     playerBullets.push(new playerBullet(this.x,this.y+this.size,"blue",9,10));
-    //     console.log("shoot");
-    // }
 }
 
 // ------------------------------------------------------------------------
@@ -70,7 +66,7 @@ class Player {
 // ------------------------------------------------------------------------
 const playerBullets = [];
 const enemies = [];
-var playerBulletVelocity = 5
+var playerBulletVelocity = 7;
 
 const player = new Player(cX,cY,"#f00",20,10);
 player.draw();
@@ -83,19 +79,24 @@ window.addEventListener("mousemove", function (event) {
     }
 }, true); 
 setInterval(() => {
-    (playerBullets.push(player.x, player.y, "blue", 8, playerBulletVelocity));
-    // console.log(playerBullets);
+    playerBullets.push(new playerBullet(player.x, player.y, "blue", 8, {x: playerBulletVelocity, y:0}));
+    console.log(playerBullets);
 }, 1000);
-
-
 
 let animationId;
 function pacer() {
     animationId = requestAnimationFrame(pacer);
     c.clearRect(0,0,innerWidth,innerWidth);
     player.update();
-    // playerBullet.update();
+    playerBullets.forEach((bullet, index) => {
+        bullet.update();
+        
+        if (bullet.x - bullet.size > innerWidth) {
+            setTimeout(() => {
+                playerBullets.splice(index, 1);
+            }, 0);
+            console.log(playerBullets);
+        }
+    });
 }
-
-
 pacer()
