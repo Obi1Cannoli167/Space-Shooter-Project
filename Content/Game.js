@@ -23,7 +23,7 @@ function sleep(ms) {
 }
 
 //Informing the player how to proceed
-info.textContent="Press SPACE to begin the game"
+info.textContent="Press the spacebar to start the game"
 
 // ------------------------------------------------------------------------
 // ---------------------------CLASSES_AND_ENTITIES-------------------------
