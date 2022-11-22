@@ -183,7 +183,7 @@ canvas.addEventListener("mousedown", (event) => {
         playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
     }
 });
-//This also works with the spacebar now
+//This also works with the spacebar now.
 window.addEventListener("keydown", (event) => {
     if (event.key == " ") {
         if (gameOn) {
