@@ -17,6 +17,11 @@ const innerHeight = canvas.height;
 const cX = innerWidth/2;
 const cY = innerHeight/2;
 
+//Code for the sleep command
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 //Informing the player how to proceed
 info.textContent="Press SPACE to begin the game"
 
@@ -176,6 +181,18 @@ function mouseMove() {
 canvas.addEventListener("mousedown", (event) => {
     if (gameOn) {
         playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
+    }
+});
+//This also works with the spacebar now
+window.addEventListener("keydown", (event) => {
+    if (event.key == " ") {
+        if (gameOn) {
+            shoot()
+            async function shoot() {
+                playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
+                await sleep(1000)
+            }
+        }
     }
 });
 
