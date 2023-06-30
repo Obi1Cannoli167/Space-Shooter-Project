@@ -17,9 +17,13 @@ const innerHeight = canvas.height;
 const cX = innerWidth/2;
 const cY = innerHeight/2;
 
+//Code for the sleep command
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 //Informing the player how to proceed
-info.textContent="Press SPACE to begin the game";
+info.textContent="Press SPACE to begin the game"
 
 // ------------------------------------------------------------------------
 // ---------------------------CLASSES_AND_ENTITIES-------------------------
@@ -197,12 +201,9 @@ function movePlayer() {
 //This function makes the player shoot when the mouse is clicked and makes it so that the player can shoot multiple bullets at once
 function shoot() {
     if (gameOn) {
-        if (mouseMoved) {
-            playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
-        }
+        playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
     }
-}
-
+});
 
 //This function makes enemies spawn but progressively faster as shown in the math
 function spawnEnemies() {
