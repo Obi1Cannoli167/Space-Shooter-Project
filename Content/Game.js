@@ -17,8 +17,9 @@ const innerHeight = canvas.height;
 const cX = innerWidth/2;
 const cY = innerHeight/2;
 
+
 //Informing the player how to proceed
-info.textContent="Press SPACE to begin the game"
+info.textContent="Press SPACE to begin the game";
 
 // ------------------------------------------------------------------------
 // ---------------------------CLASSES_AND_ENTITIES-------------------------
@@ -44,8 +45,8 @@ class playerBullet {
     }
     update(){
         this.draw();
-        this.x = this.x + this.velocity.x;
-        this.y = this.y + this.velocity.y;
+        this.y = this.y + (this.velocity.y/refreshRate);
+        this.x = this.x + (this.velocity.x/refreshRate);
     }
 }
 //blueprint of the player itself
@@ -70,6 +71,7 @@ class Player {
         c.fillText("Player", this.x-this.size*1.5, this.y-this.size);
         c.closePath();
         c.fill();
+        c.strokeStyle = "white";
         c.stroke();
     }
     update(){
@@ -99,12 +101,13 @@ class Enemy {
         c.fillText(this.health+"HP", this.x-this.size*1.5, this.y-this.size);
         c.closePath();
         c.fill();
+        c.strokeStyle = "white";
         c.stroke();
     }
     update(){
         this.draw();
-        this.x = this.x - this.velocity.x;
-        this.y = this.y - this.velocity.y;
+        this.x = this.x - (this.velocity.x/refreshRate);
+        this.y = this.y - (this.velocity.y/refreshRate);
     }
 }
 //A squared object made to give temporary powers to the player once consumed
@@ -132,8 +135,8 @@ class PowerUp {
     }
     update() {
         this.draw();
-        this.x = this.x + this.velocity.x;
-        this.y = this.y + this.velocity.y;
+        this.x = this.x + (this.velocity.x/refreshRate);
+        this.y = this.y + (this.velocity.y/refreshRate);
     }
 }
 // ------------------------------------------------------------------------
@@ -155,29 +158,51 @@ let gameOn = false;
 let gameOver = false;
 let score = 0;
 let seconds = 0;
-
+let mouseX = 0;
+let mouseY = 0;
+let mouseMoved = false;
+let refreshRate = 2;
 //Initially declaring the player object, made to be centered on the canvas itself3
-const player = new Player(cX,cY,"#f00",20,10);
-player.draw();33
+const player = new Player(cX,cY,"#f00",20,7);
+player.draw(); 
 //A function that activates whenever the mouse is moving inside the game (canvas), reads the cursor position and uses calculus to draw the player object to the cursor in an animated fashion, as the further away the cursor is, the further the displacement
-function mouseMove() {
-    canvas.addEventListener("mousemove", function (event) {
-        const distance = Math.hypot(Math.abs(event.clientX - player.x), Math.abs(event.clientY - player.y));
-        const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x);
-        //To make sure it displaces itself whenever needed
-        if (distance!=0) {
-            player.y += player.velocity*Math.sin(angle)*(0.033*distance);
-            player.x += player.velocity*Math.cos(angle)*(0.033*distance);
-        }
-    }, true); 
+function mouseUpdate() {
+    if (gameOn) {
+        canvas.addEventListener("mousemove", function (event) {
+            mouseMoved = true;
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        }, true);
+    }
 }
+function movePlayer() {
+    if (gameOn) {
+        const distance = Math.hypot(Math.abs(mouseX - player.x), Math.abs(mouseY - player.y));
+        const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+        //To make sure it displaces itself whenever needed
+        if (distance>player.velocity && mouseMoved) {
+            player.y += player.velocity*Math.sin(angle)/refreshRate;
+            player.x += player.velocity*Math.cos(angle)/refreshRate;
+        }
+    }
+};
 
 //This function appends a bullet object into the array whenever clicked on the mouse. 
-canvas.addEventListener("mousedown", (event) => {
+// canvas.addEventListener("mousedown", (event) => {
+//     if (gameOn) {
+//         playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
+//     }
+// });
+//make a function that makes the player shoot when the mouse is clicked and make it so that the player can shoot multiple bullets at once
+//This function makes the player shoot when the mouse is clicked and makes it so that the player can shoot multiple bullets at once
+function shoot() {
     if (gameOn) {
-        playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
+        if (mouseMoved) {
+            playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
+        }
     }
-});
+}
+
 
 //This function makes enemies spawn but progressively faster as shown in the math
 function spawnEnemies() {
@@ -232,6 +257,7 @@ function pacer() {
     //Useful for making the enemies harder to hit, and looks cool
     swerve+=(0.01)*(1+radicalDifficultyIndex);
     c.clearRect(0,0,innerWidth,innerWidth);
+    movePlayer();
     player.update();
     //Calls in on each individual bullet object in the array and removes whatever bullet reaches the end of the canvas
     playerBullets.forEach((bullet, index) => {
@@ -333,7 +359,7 @@ window.addEventListener("keydown", event => {
     if (event.key == " " && !gameOn && !gameOver) {
         gameOn=true;
         spawnEnemies();
-        mouseMove();
+        mouseUpdate();
         difficultyIncrease();
         timer();
         life.textContent="Lives: "+lives;
@@ -356,4 +382,5 @@ pacer();
 function restartGame() {
     location.reload();
     gameOverMenu.style.visibility="hidden";
+    mouseMoved = false;
 }
