@@ -192,18 +192,18 @@ function movePlayer() {
 };
 
 //This function appends a bullet object into the array whenever clicked on the mouse. 
-// canvas.addEventListener("mousedown", (event) => {
-//     if (gameOn) {
-//         playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
-//     }
-// });
-//make a function that makes the player shoot when the mouse is clicked and make it so that the player can shoot multiple bullets at once
-//This function makes the player shoot when the mouse is clicked and makes it so that the player can shoot multiple bullets at once
-function shoot() {
+canvas.addEventListener("mousedown", (event) => {
     if (gameOn) {
         playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
     }
 });
+//make a function that makes the player shoot when the mouse is clicked and make it so that the player can shoot multiple bullets at once
+//This function makes the player shoot when the mouse is clicked and makes it so that the player can shoot multiple bullets at once
+// function shoot() {
+//     if (gameOn) {
+//         playerBullets.push(new playerBullet(player.x, player.y, "blue", 10*powerUpMultiplier/1.75, {x: playerBulletVelocity*powerUpMultiplier, y:0}, 3*powerUpMultiplier));
+//     }
+// };
 
 //This function makes enemies spawn but progressively faster as shown in the math
 function spawnEnemies() {
