@@ -4,7 +4,7 @@ $(document).ready(function() {
         var password = $("input[name='RegPassword']").val();
         var email = $("input[name='RegEmail']").val();
         $.ajax({
-            url: "../Queries/register.php",
+            url: "Queries/register.php",
             type: "POST",
             data: {
                 username: username,
