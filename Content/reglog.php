@@ -15,14 +15,17 @@
 </head>
 
 <body>
-    <header>
-
-    </header>
-    <footer>
-        <p><b><i>©Rolf & Loan's "Space" Shooter</i></b></p>
-        <p>[This Website is 80s Themed in honor of the First Game that started the Gerne of Space Shooters called "Space
-            Invaders" wich was at its most poular in the 80s]</p>
-    </footer>
+    <div id="main">
+        <div>
+            <form method="post">
+                <input name="RegUsername" type="text" placeholder="Username">
+                <input name="RegEmail" type="email" placeholder="Email address">
+                <input name="RegPassword" type="password" placeholder="Password">
+                <input id="register" name="Register" type="button" value="Register">
+            </form>
+            <p id="info"></p>
+        </div>
+    </div>
 </body>
 
 </html>
