@@ -5,10 +5,95 @@
   box-sizing: border-box;
 }
 
-#main form {
+body {
+  background-color: #070b0c;
+  color: #f5f7f7;
+  font-family: "Orbitron", sans-serif;
+}
+
+#space {
+  background-image: url(../Images/game.png);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
+}
+
+#main {
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+}
+
+.center {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   flex-direction: column;
 }
-#main form input {
-  width: 200px;
+.center * {
+  font-family: "Orbitron", sans-serif;
+}
+
+.gameContainer * {
+  font-family: "Orbitron", sans-serif;
+}
+
+.container-sm {
+  width: 440px !important;
+}
+.container-sm form * {
+  margin: 0 auto;
+}
+
+.container .display-6 {
+  margin-bottom: 20px;
+  color: #f9a828;
+}
+
+.right .img {
+  width: 600px;
+  height: 400px;
+  background-image: url(../Images/game.png);
+  background-size: cover;
+}
+
+header {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  border-bottom: 3px dotted #f9a828;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+header p {
+  margin: 0;
+}
+header a {
+  color: #f9a828;
+  text-decoration: none;
+}
+header a:hover {
+  color: #724d12;
+}
+header > div {
+  display: flex;
+  align-items: center;
+}
+
+#reg,
+#log {
+  padding: 20px;
+  border-radius: 5px;
+  background-image: radial-gradient(rgba(10, 10, 10, 0.5) 30%, rgba(10, 10, 10, 0.9) 90%);
+}
+
+#timer,
+#life,
+#scoreboard {
+  transform: translate(420px, 68px);
+}
+
+#infos {
+  transform: translateY(68px);
 }/*# sourceMappingURL=style.css.map */

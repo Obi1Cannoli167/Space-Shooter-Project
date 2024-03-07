@@ -1,15 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+
+$bright: #f5f7f7;
+$dark: #0f181b;
+$darker: #070b0c;
+$accent: #f9a828;
+$accent-dark: #724d12;
+
+$canvasheight: 810px;
+$canvaswidth: 1080px;
+
+$canvasmarginhorizontal: (1920px - $canvaswidth) / 2;
+$canvasmarginvertical: (946px - $canvasheight) / 2;
+
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+body {
+  background-color: $darker;
+  color: $bright;
+  font-family: "Orbitron", sans-serif;
+}
+
+#space {
+    background-image: url(../Images/game.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: bottom;   
+}
+
 #main {
-    form {
-        display: flex;    
-        flex-direction: column;
-        input {
-            width: 200px;
-        }
-    }
+    backdrop-filter: blur(15px);
+    background-image: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
 }
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  * {
+    font-family: "Orbitron", sans-serif;
+  }
+}
+
+.gameContainer * {
+  font-family: "Orbitron", sans-serif;
+}
+
+.container-sm {
+  width: 440px !important;
+  form {
+    * {
+      margin: 0 auto;
+    }
+  }
+}
+
+.container .display-6 {
+  margin-bottom: 20px;
+  color: $accent;
+}
+
+.right {
+  .img {
+    width: 600px;
+    height: 400px;
+    background-image: url(../Images/game.png);
+    background-size: cover;
+  }
+}
+
+header {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  p {
+    margin: 0;
+  }
+  a {
+    color: $accent;
+    text-decoration: none;
+    &:hover {
+      color: $accent-dark;
+    }
+  }
+  > div {
+    display: flex;
+    align-items: center;
+  }
+  border-bottom: 3px dotted $accent;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+#reg,
+#log {
+    padding: 20px;
+    border-radius: 5px;
+    background-image: radial-gradient(rgba(10, 10, 10, 0.5) 30%, rgba(10, 10, 10, 0.9) 90%);
+}
+
+#timer,
+#life,
+#scoreboard {
+  transform: translate($canvasmarginhorizontal, $canvasmarginvertical);
+}
+#infos {
+  transform: translateY($canvasmarginvertical);
+}
+
