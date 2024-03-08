@@ -10,7 +10,7 @@ create table players (
 );
 
 create table scores (
-    score_id INT NOT NULL PRIMARY KEY,
+    score_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     play_date DATETIME NOT NULL,
     score INT NOT NULL,
     playtime INT NOT NULL,

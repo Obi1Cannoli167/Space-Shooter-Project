@@ -21,6 +21,16 @@
     ?>
     <div class="container">
         <div class="row align-items-start">
+            <!-- leaderboards button -->
+            <?php
+            if ($_SESSION["loggedin"] == true) {
+            ?>
+            <div class="col-12">
+                <button id="leaderboards" class="btn btn-primary position-relative top-50 start-50 translate-middle-x"><span class="display-5">Leaderboards</span></button>
+            </div>
+            <?php
+            }
+            ?>
             <div class="col-6">
                 <p class="display-6">Welcome to our project!</p>
                 <p class="lead">This is a game that we are developing for our final project in our client-side scripting class which uses vanilla JavaScript.</p>
@@ -48,7 +58,17 @@
                     }
                     ?>
                 </div>
-
+                <p>Before playing, check your monitor's/TV's refresh rate and adapt it to the game for the optimal experience:</p>
+                    <select name="refreshrate" id="refrate">
+                        <option value="60">60Hz</option>
+                        <option value="75">75Hz</option>
+                        <option value="120">120Hz</option>
+                        <option value="144">144Hz</option>
+                        <option value="165">165Hz</option>
+                        <option value="240">240Hz</option>
+                        <option value="360">360Hz</option>
+                    </select>
+                <p id="refrateinfo"></p>
             </div>
         </div>
     </div>

@@ -36,6 +36,7 @@
 <body>
     <div id="main" class="gameContainer">
         <button onclick="exit()" class="btn btn-primary position-absolute top-0 start-50 translate-middle-x">Exit Game</button>
+        <p id="refreshrate" style="display: none;"></p>
         <canvas>
         </canvas>
         <h1 id="timer"></h1>

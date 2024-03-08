@@ -8,3 +8,7 @@ if (!isset($_SESSION['loggedin'])) {
 if (!isset($_SESSION['username'])) {
     $_SESSION['username'] = "";
 }
+
+if (!isset($_SESSION['refreshrate'])) {
+    $_SESSION['refreshrate'] = 60;
+}

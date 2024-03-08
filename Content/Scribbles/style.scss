@@ -6,6 +6,10 @@ $darker: #070b0c;
 $accent: #f9a828;
 $accent-dark: #724d12;
 
+$bronze: #a3691d;
+$silver: #5d7070;
+$gold: #c0ad00;
+
 $canvasheight: 810px;
 $canvaswidth: 1080px;
 
@@ -25,15 +29,15 @@ body {
 }
 
 #space {
-    background-image: url(../Images/game.png);
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: bottom;   
+  background-image: url(../Images/game.png);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom;
 }
 
 #main {
-    backdrop-filter: blur(15px);
-    background-image: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  backdrop-filter: blur(15px);
+  background-image: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
 }
 
 .center {
@@ -52,7 +56,7 @@ body {
 }
 
 .container-sm {
-  width: 440px !important;
+  width: 540px !important;
   form {
     * {
       margin: 0 auto;
@@ -99,9 +103,12 @@ header {
 
 #reg,
 #log {
-    padding: 20px;
-    border-radius: 5px;
-    background-image: radial-gradient(rgba(10, 10, 10, 0.5) 30%, rgba(10, 10, 10, 0.9) 90%);
+  padding: 20px;
+  border-radius: 5px;
+  background-image: radial-gradient(
+    rgba(10, 10, 10, 0.5) 30%,
+    rgba(10, 10, 10, 0.9) 90%
+  );
 }
 
 #timer,
@@ -112,4 +119,3 @@ header {
 #infos {
   transform: translateY($canvasmarginvertical);
 }
-

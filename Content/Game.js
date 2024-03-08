@@ -10,6 +10,7 @@ const scoreboard = document.querySelector("#scoreboard");
 const Timer = document.querySelector("#timer");
 const gameOverMenu = document.querySelector("#gameOver");
 const c = canvas.getContext("2d");
+var refreshRateValue = 0;
 canvas.width = 1080;
 canvas.height = 810;
 const innerWidth = canvas.width;
@@ -36,7 +37,40 @@ $.ajax({
     username = data;
   },
 });
+// <?php
+// session_start();
 
+// $refreshrate = $_POST["refresh"];
+// $_SESSION['refreshrate'] = $refreshrate;
+// echo $_SESSION['refreshrate'];
+
+$.ajax({
+  url: "./Queries/getRefreshrate.php",
+  type: "POST",
+  success: function (data) {
+    console.log(data);
+    document.querySelector("#refreshrate").textContent =
+      "Refresh rate: " + data + "Hz";
+    refreshRateValue = data;
+    refreshRate = refreshRateValue / 60;
+  },
+});
+
+function sendScore() {
+  $.ajax({
+    url: "./Queries/insertScore.php",
+    type: "POST",
+    data: {
+      score: score,
+      time: seconds,
+    },
+    success: function (data) {
+      console.log(data);
+    },
+  });
+}
+
+console.log("refreshRateValue: " + typeof refreshRateValue);
 //Code for the sleep command
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -189,7 +223,8 @@ let seconds = 0;
 let mouseX = 0;
 let mouseY = 0;
 let mouseMoved = false;
-let refreshRate = 2;
+var refreshRate = refreshRateValue / 60;
+console.log("refreshRate: " + typeof refreshRate);
 //Initially declaring the player object, made to be centered on the canvas itself3
 const player = new Player(cX, cY, "#f00", 20, 7);
 player.draw();
@@ -423,6 +458,7 @@ function pacer() {
     document.querySelector("#timeCount").textContent =
       "You lasted " + seconds + " seconds!";
     gameOverMenu.style.visibility = "visible";
+    sendScore();
   }
 }
 //This initializes all the functions upon the press of the spacebar, and the two other conditions are to prevent you from doing it twice which could make the game go haywire.
